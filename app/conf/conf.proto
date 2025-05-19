@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package kratos.api;
+
+import "app/third_party/protoeditor/include/google/protobuf/duration.proto";
+
+option go_package = "gil_teacher/app/conf;conf";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  Log log = 3;
+  Config config = 4;
+  BehaviorConfig behavior = 5;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+}
+
+message Data {
+  MySQL activityWrite = 1;
+  MySQL activityRead = 2;
+  Redis redisForApi = 3;
+}
+
+message MySQL {
+  string driver = 1;
+  string source = 2;
+  int32 max_idle_conns = 3;
+  int32 max_open_conns = 4;
+}
+
+message PolarDB {
+  string driver = 1;
+  string source = 2;
+  int32 max_idle_conns = 3;
+  int32 max_open_conns = 4;
+}
+
+message HoloDB {
+  string host = 1;
+  int32 port = 2;
+  string database = 3;
+  string username = 4;
+  string password = 5;
+  string schema = 6;
+}
+
+message Redis {
+  string network = 1;
+  string address = 2;
+  string password = 3;
+  int32 database = 4;
+  google.protobuf.Duration dial_timeout = 5;
+  google.protobuf.Duration read_timeout = 6;
+  google.protobuf.Duration write_timeout = 7;
+}
+
+message Log {
+  string path = 1;
+  string level = 2;
+  google.protobuf.Duration rotationtime = 3;
+  google.protobuf.Duration maxage = 4;
+}
+
+message Config {
+  string env = 1;
+  AdminAuth admin_auth = 2;
+}
+
+message AdminAuth {
+  string domain = 1;
+  int32 system_id = 2;
+  google.protobuf.Duration timeout = 3;
+}
+
+message BehaviorConfig {
+  string host = 1;
+  int32 port = 2;
+  string database = 3;
+  string username = 4;
+  string password = 5;
+  google.protobuf.Duration conn_timeout = 6;
+  google.protobuf.Duration read_timeout = 7;
+  google.protobuf.Duration write_timeout = 8;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package gil_teacher.api.base;
+option go_package = "gil_teacher/proto/gen/go/proto/gil_teacher/base;base";
+
+message Error {
+    int32 code = 1;
+    string message = 2;
+}
+
+message Page {
+    int32 page = 1;
+    int32 page_size = 2;
+    int32 total = 3;
+}

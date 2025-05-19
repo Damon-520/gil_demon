@@ -1,0 +1,31 @@
+syntax = "proto3";
+package gil_teacher.api.user;
+option go_package = 
+  "gil_teacher/proto/gen/go/proto/gil_teacher/api";
+
+import "google/api/annotations.proto";
+import "proto/gil_teacher/user/user.proto";
+
+service ApiUserService {
+  // 用户列表.
+  rpc List(ListReq) returns (ListRes) {
+    option (google.api.http) = {
+      post:"/api/gil_teacher/user/list"
+      body:"*"
+    };
+  }
+}
+
+message ListReq {
+  string name = 1;
+  string email = 2;
+}
+
+message ListRes {
+  message Data {
+    repeated gil_teacher.api.user.User lists = 1;
+  }
+  int32 code = 1;
+  string message = 2;
+  Data data = 3;
+}

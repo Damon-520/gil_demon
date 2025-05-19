@@ -1,0 +1,9 @@
+POST http://localhost:8085/activityadmin/v1/live/room/info
+Content-Type: application/json
+TOKEN: 123
+
+{
+  "id": 26
+}
+
+###

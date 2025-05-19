@@ -1,0 +1,153 @@
+<idea-plugin package="com.intellij.protobuf">
+  <name>Protocol Buffers</name>
+  <id>idea.plugin.protoeditor</id>
+  <version>243.23654.119</version>
+  <idea-version since-build="243.23654.119" until-build="243.23654.119" />
+  <vendor>JetBrains</vendor>
+  <category>Microservices</category>
+  <description><![CDATA[Provides editor support for <a href="https://developers.google.com/protocol-buffers/">Protocol Buffers</a> files.
+    <br>
+    Features:
+    <ul>
+        <li>Support for <code>proto2</code> and <code>proto3</code> syntax levels.</li>
+        <li>Syntax highlighting.</li>
+        <li>Semantic analysis.</li>
+        <li>References and navigation.</li>
+        <li>Quick documentation.</li>
+        <li>Editor enhancements (completion, brace matching, etc.).</li>
+        <li>Navigating between protobuf files and some other languages (Java, Go, Python).</li>
+    </ul>]]></description>
+  <content>
+    <module name="intellij.protoeditor.go"><![CDATA[<idea-plugin package="com.intellij.protobuf.go">
+  <dependencies>
+    <plugin id="org.jetbrains.plugins.go" />
+  </dependencies>
+  <extensions defaultExtensionNs="com.intellij">
+    <protobuf.codeImplementationSearcher implementation="com.intellij.protobuf.go.gutter.PbGoImplementationSearcher" />
+    <gotoDeclarationHandler implementation="com.intellij.protobuf.go.PbGolangGotoDeclarationHandler" order="first" />
+    <codeInsight.lineMarkerProvider language="go" implementationClass="com.intellij.protobuf.go.gutter.PbGoLineMarkerProvider" />
+  </extensions>
+</idea-plugin>]]></module>
+    <module name="intellij.protoeditor.python"><![CDATA[<idea-plugin package="com.intellij.protobuf.python">
+  <dependencies>
+    <plugin id="com.intellij.modules.python" />
+  </dependencies>
+  <extensions defaultExtensionNs="com.intellij">
+    <gotoDeclarationHandler implementation="com.intellij.protobuf.python.PbPythonGotoDeclarationHandler" order="first" />
+  </extensions>
+</idea-plugin>]]></module>
+    <module name="intellij.protoeditor.jvm"><![CDATA[<idea-plugin package="com.intellij.protobuf.jvm">
+  <dependencies>
+    <plugin id="com.intellij.java" />
+  </dependencies>
+  <extensions defaultExtensionNs="com.intellij">
+    <protobuf.codeImplementationSearcher implementation="com.intellij.protobuf.jvm.gutter.PbJavaImplementationSearcher" />
+    <gotoDeclarationHandler implementation="com.intellij.protobuf.jvm.PbJavaGotoDeclarationHandler" />
+    <fileBasedIndex implementation="com.intellij.protobuf.jvm.PbJavaOuterClassIndex" />
+    <findUsagesHandlerFactory implementation="com.intellij.protobuf.jvm.PbJavaFindUsagesHandlerFactory" />
+    <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.intellij.protobuf.jvm.gutter.PbJavaLineMarkerProvider" />
+  </extensions>
+</idea-plugin>]]></module>
+  </content>
+  <dependencies>
+    <plugin id="com.intellij.modules.lang" />
+  </dependencies>
+  <extensionPoints>
+    <extensionPoint qualifiedName="com.intellij.protobuf.fileResolveProvider" interface="com.intellij.protobuf.lang.resolve.FileResolveProvider" area="IDEA_PROJECT" dynamic="true" />
+    <extensionPoint qualifiedName="com.intellij.protobuf.projectSettingsConfigurator" interface="com.intellij.protobuf.ide.settings.ProjectSettingsConfigurator" area="IDEA_PROJECT" dynamic="true" />
+    <extensionPoint qualifiedName="com.intellij.protobuf.schemaProvider" interface="com.intellij.protobuf.lang.resolve.SchemaProvider" area="IDEA_PROJECT" dynamic="true" />
+    <extensionPoint qualifiedName="com.intellij.protobuf.nameGeneratorContributor" interface="com.intellij.protobuf.lang.names.NameGeneratorContributor" dynamic="true" />
+    <extensionPoint qualifiedName="com.intellij.protobuf.codeImplementationSearcher" interface="com.intellij.protobuf.ide.gutter.PbCodeImplementationSearcher" dynamic="true" />
+    <extensionPoint qualifiedName="com.intellij.protobuf.generatedCodeConverterProvider" interface="com.intellij.protobuf.ide.gutter.PbGeneratedCodeConverterProvider" dynamic="true" />
+  </extensionPoints>
+  <extensions defaultExtensionNs="com.intellij.protobuf">
+    <fileResolveProvider id="settings" order="FIRST" implementation="com.intellij.protobuf.ide.settings.SettingsFileResolveProvider" />
+    <fileResolveProvider implementation="com.intellij.protobuf.lang.resolve.PbIndexBasedFileResolveProvider" />
+    <schemaProvider implementation="com.intellij.protobuf.lang.resolve.directive.SchemaDirectiveSchemaProvider" />
+  </extensions>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="protobuf" language="protobuf" implementationClass="com.intellij.protobuf.lang.PbFileType" extensions="proto" fieldName="INSTANCE" />
+    <lang.parserDefinition language="protobuf" implementationClass="com.intellij.protobuf.lang.PbParserDefinition" />
+    <lang.syntaxHighlighterFactory language="protobuf" implementationClass="com.intellij.protobuf.ide.highlighter.PbSyntaxHighlighterFactory" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.ide.highlighter.PbHighlightingAnnotator" order="FIRST" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.ide.highlighter.PbTextHighlightingAnnotator" order="FIRST" />
+    <colorSettingsPage implementation="com.intellij.protobuf.ide.highlighter.PbColorSettingsPage" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.lang.annotation.PbAnnotator" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.lang.annotation.Proto2Annotator" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.lang.annotation.Proto3Annotator" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.lang.annotation.EditionsAnnotator" />
+    <annotator language="protobuf" implementationClass="com.intellij.protobuf.lang.annotation.PbTextAnnotator" />
+    <lang.psiStructureViewFactory language="protobuf" implementationClass="com.intellij.protobuf.ide.views.PbStructureViewFactory" />
+    <copyPastePostProcessor implementation="com.intellij.protobuf.lang.refactoring.json.PbJsonCopyPasteProcessor" />
+    <lang.formatter language="protobuf" implementationClass="com.intellij.protobuf.ide.formatter.PbFormattingModelBuilder" />
+    <codeStyleSettingsProvider implementation="com.intellij.protobuf.ide.style.PbCodeStyleSettingsProvider" />
+    <langCodeStyleSettingsProvider implementation="com.intellij.protobuf.ide.style.PbLanguageCodeStyleSettingsProvider" />
+    <lineIndentProvider implementation="com.intellij.protobuf.ide.editing.PbLineIndentProvider" />
+    <breadcrumbsInfoProvider implementation="com.intellij.protobuf.ide.views.PbBreadcrumbsInfoProvider" />
+    <typedHandler implementation="com.intellij.protobuf.ide.editing.ProtoTypedHandler" />
+    <backspaceHandlerDelegate implementation="com.intellij.protobuf.ide.editing.ProtoBackspaceHandler" />
+    <completion.confidence language="protobuf" implementationClass="com.intellij.protobuf.lang.completion.PbCompletionConfidence" />
+    <completion.contributor language="protobuf" implementationClass="com.intellij.protobuf.lang.completion.PbCompletionContributor" />
+    <enterBetweenBracesDelegate language="protobuf" implementationClass="com.intellij.protobuf.ide.editing.PbEnterBetweenBracesDelegate" />
+    <lang.braceMatcher language="protobuf" implementationClass="com.intellij.protobuf.ide.editing.ProtoBraceMatcher" />
+    <lang.foldingBuilder language="protobuf" implementationClass="com.intellij.protobuf.ide.folding.ProtoFoldingBuilder" />
+    <quoteHandler fileType="protobuf" className="com.intellij.protobuf.ide.editing.ProtoQuoteHandler" />
+    <spellchecker.support language="protobuf" implementationClass="com.intellij.protobuf.ide.spelling.PbSpellcheckingStrategy" />
+    <lang.commenter language="protobuf" implementationClass="com.intellij.protobuf.ide.editing.PbCommenter" />
+    <multiLangCommenter implementation="com.intellij.protobuf.ide.editing.ProtoCommentProvider" />
+    <lang.importOptimizer language="protobuf" implementationClass="com.intellij.protobuf.lang.refactoring.PbImportOptimizer" />
+    <localInspection language="protobuf" bundle="messages.ProtobufLangBundle" key="inspection.duplicated.imports.name" groupBundle="messages.ProtobufLangBundle" groupKey="protobuf.inspections.group.name" enabledByDefault="true" implementationClass="com.intellij.protobuf.lang.inspection.PbDuplicatedImportsInspection" />
+    <codeInsight.lineMarkerProvider language="protobuf" implementationClass="com.intellij.protobuf.ide.gutter.PbCodeImplementationLineMarkerProvider" />
+    <lang.findUsagesProvider language="protobuf" implementationClass="com.intellij.protobuf.lang.findusages.PbFindUsagesProvider" />
+    <elementDescriptionProvider implementation="com.intellij.protobuf.lang.findusages.PbElementDescriptionProvider" />
+    <usageTypeProvider implementation="com.intellij.protobuf.lang.findusages.PbUsageTypeProvider" />
+    <gotoSymbolContributor implementation="com.intellij.protobuf.lang.gotobyname.PbGotoSymbolContributor" />
+    <documentationProvider implementation="com.intellij.protobuf.ide.documentation.PbDocumentationProvider" />
+    <stubElementTypeHolder externalIdPrefix="protobuf." class="com.intellij.protobuf.lang.stub.type.PbStubElementTypes" />
+    <stubIndex implementation="com.intellij.protobuf.lang.stub.index.QualifiedNameIndex" />
+    <stubIndex implementation="com.intellij.protobuf.lang.stub.index.ShortNameIndex" />
+    <projectConfigurable instance="com.intellij.protobuf.ide.settings.PbLanguageSettingsConfigurable" groupId="language" key="settings.project.display" bundle="messages.ProtobufIdeBundle">
+      <configurable instance="com.intellij.protobuf.ide.settings.PbTextLanguageSettingsConfigurable" key="prototext.settings.project.display" bundle="messages.ProtobufIdeBundle" />
+    </projectConfigurable>
+    <useScopeEnlarger implementation="com.intellij.protobuf.lang.resolve.PbUseScopeEnlarger" />
+    <liveTemplateContext contextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext" />
+    <liveTemplateContext contextId="PROTO_ENUM" baseContextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext$EnumBody" />
+    <liveTemplateContext contextId="PROTO_EXTEND" baseContextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext$ExtendBody" />
+    <liveTemplateContext contextId="PROTO_MESSAGE" baseContextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext$MessageBody" />
+    <liveTemplateContext contextId="PROTO_ONEOF" baseContextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext$OneofBody" />
+    <liveTemplateContext contextId="PROTO_SERVICE" baseContextId="PROTO" implementation="com.intellij.protobuf.ide.template.PbLanguageContext$ServiceBody" />
+  </extensions>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="prototext" language="prototext" implementationClass="com.intellij.protobuf.lang.PbTextFileType" fieldName="INSTANCE" extensions="pb;textproto;txtpb" />
+    <lang.parserDefinition language="prototext" implementationClass="com.intellij.protobuf.lang.PbTextParserDefinition" />
+    <filetype.stubBuilder filetype="prototext" implementationClass="com.intellij.protobuf.lang.stub.PbTextFileStubBuilder" />
+    <lang.syntaxHighlighterFactory language="prototext" implementationClass="com.intellij.protobuf.ide.highlighter.PbTextSyntaxHighlighterFactory" />
+    <annotator language="prototext" implementationClass="com.intellij.protobuf.ide.highlighter.PbTextHighlightingAnnotator" />
+    <colorSettingsPage implementation="com.intellij.protobuf.ide.highlighter.PbTextColorSettingsPage" />
+    <annotator language="prototext" implementationClass="com.intellij.protobuf.lang.annotation.PbTextAnnotator" />
+    <lang.formatter language="prototext" implementationClass="com.intellij.protobuf.ide.formatter.PbTextFormattingModelBuilder" />
+    <codeStyleSettingsProvider implementation="com.intellij.protobuf.ide.style.PbTextCodeStyleSettingsProvider" />
+    <langCodeStyleSettingsProvider implementation="com.intellij.protobuf.ide.style.PbTextLanguageCodeStyleSettingsProvider" />
+    <enterHandlerDelegate implementation="com.intellij.protobuf.ide.editing.PbTextEnterBetweenBracesHandler" />
+    <quoteHandler fileType="prototext" className="com.intellij.protobuf.ide.editing.ProtoQuoteHandler" />
+    <lang.braceMatcher language="prototext" implementationClass="com.intellij.protobuf.ide.editing.ProtoBraceMatcher" />
+    <lang.foldingBuilder language="prototext" implementationClass="com.intellij.protobuf.ide.folding.ProtoFoldingBuilder" />
+    <spellchecker.support language="prototext" implementationClass="com.intellij.protobuf.ide.spelling.PbTextSpellcheckingStrategy" />
+    <lang.commenter language="prototext" implementationClass="com.intellij.protobuf.ide.editing.PbTextCommenter" />
+    <psi.referenceContributor language="prototext" implementation="com.intellij.protobuf.lang.resolve.directive.SchemaDirectiveReferenceContributor" />
+    <annotator language="prototext" implementationClass="com.intellij.protobuf.lang.resolve.directive.SchemaDirectiveAnnotator" />
+    <daemon.changeLocalityDetector implementation="com.intellij.protobuf.lang.resolve.directive.SchemaDirectiveChangeLocalityDetector" />
+    <completion.contributor language="prototext" implementationClass="com.intellij.protobuf.lang.resolve.directive.SchemaDirectiveCompletionContributor" />
+    <editorNotificationProvider implementation="com.intellij.protobuf.ide.editing.MissingSchemaNotificationProvider" />
+    <templateCompletionProcessor implementation="com.intellij.protobuf.ide.template.ChildEntryTemplateCompletionProcessor" />
+    <templateCompletionProcessor implementation="com.intellij.protobuf.ide.template.SymbolTemplateCompletionProcessor" />
+    <liveTemplateContext contextId="PROTOTEXT" implementation="com.intellij.protobuf.ide.template.PbTextLanguageContext" />
+    <dependencySupport coordinate="com.google.protobuf:protobuf-java" kind="java" />
+  </extensions>
+  <actions>
+    <action class="com.intellij.protobuf.ide.actions.InsertSchemaDirectiveAction" id="prototext.InsertSchemaDirective">
+      <add-to-group group-id="EditorPopupMenu" />
+    </action>
+  </actions>
+  <resource-bundle>messages.ProtobufIdeBundle</resource-bundle>
+</idea-plugin>

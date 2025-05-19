@@ -1,0 +1,16 @@
+POST http://localhost:8081/demoApi/v1/live/room/list
+Content-Type: application/json
+TOKEN: 123
+
+{
+  "name": "直播间",
+  "is_disabled": 2,
+  "date_range": {
+    "start_date": "",
+    "end_date": ""
+  },
+  "page": 1,
+  "limit": 10
+}
+
+###

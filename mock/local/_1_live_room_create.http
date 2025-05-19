@@ -1,0 +1,20 @@
+POST http://localhost:8085/activityadmin/v1/live/room/create
+Content-Type: application/json
+TOKEN: e5f431e343aa1ae01d2c5e1e36889b4e
+
+{
+  "name": "直播间2",
+  "description": "直播间描述！",
+  "icon": "https://example.com/icon.png",
+  "cover": "https://example.com/cover.png",
+  "sort": 3,
+  "is_disabled": 2,
+  "is_default": 2
+}
+
+###
+
+
+
+
+

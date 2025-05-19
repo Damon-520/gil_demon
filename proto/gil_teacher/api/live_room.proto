@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package gil_teacher.api.user;
+
+option go_package = 
+  "gil_teacher/proto/gen/go/proto/gil_teacher/api";
+
+// Import common proto definitions
+import "google/api/annotations.proto";
+
+service LiveRoom {
+  // Create a new live room
+  rpc Create(LiveRoomCreateRequest) returns (LiveRoomCreateResponse) {
+    option (google.api.http) = {
+      post: "/v1/live/room/create"
+      body: "*"
+    };
+  }
+
+  // Get live room info
+  rpc Info(LiveRoomInfoRequest) returns (LiveRoomInfoResponse) {
+    option (google.api.http) = {
+      post: "/v1/live/room/info"
+    };
+  }
+
+  // Get live room list
+  rpc List(LiveRoomListRequest) returns (LiveRoomListResponse) {
+    option (google.api.http) = {
+      post: "/v1/live/room/list"
+    };
+  }
+
+  // Edit live room
+  rpc Edit(LiveRoomEditRequest) returns (LiveRoomEditResponse) {
+    option (google.api.http) = {
+      post: "/v1/live/room/edit"
+      body: "*"
+    };
+  }
+
+  // Update live room
+  rpc Update(LiveRoomUpdateRequest) returns (LiveRoomUpdateResponse) {
+    option (google.api.http) = {
+      post: "/v1/live/room/update"
+      body: "*"
+    };
+  }
+}
+
+// Request and Response messages
+message LiveRoomCreateRequest {
+  string name = 1;
+  int32 live_type = 2;
+}
+
+message LiveRoomCreateResponse {
+  int32 code = 1;
+  string message = 2;
+  message Data {
+    int64 last_id = 1;
+  }
+  Data data = 3;
+}
+
+message LiveRoomInfoRequest {
+  int64 id = 1;
+}
+
+message LiveRoomInfoResponse {
+  int32 code = 1;
+  string message = 2;
+  message Data {
+    LiveRoomVo live_room = 1;
+  }
+  Data data = 3;
+}
+
+message LiveRoomListRequest {
+  string name = 1;
+  int32 is_disabled = 2;
+  string start_date = 3;
+  string end_date = 4;
+  int32 page = 5;
+  int32 limit = 6;
+}
+
+message LiveRoomListResponse {
+  int32 code = 1;
+  string message = 2;
+  message Data {
+    int32 total = 1;
+    repeated LiveRoomVo lists = 2;
+    PageInfo page_info = 3;
+  }
+  Data data = 3;
+}
+
+message LiveRoomEditRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 is_disabled = 3;
+}
+
+message LiveRoomEditResponse {
+  int32 code = 1;
+  string message = 2;
+  message Data {
+    int32 rows = 1;
+  }
+  Data data = 3;
+}
+
+message LiveRoomUpdateRequest {
+  int64 id = 1;
+  string name = 2;
+  int32 is_disabled = 3;
+}
+
+message LiveRoomUpdateResponse {
+  int32 code = 1;
+  string message = 2;
+  message Data {
+    int32 rows = 1;
+  }
+  Data data = 3;
+}
+
+// Common message types
+message LiveRoomVo {
+  int64 id = 1;
+  string name = 2;
+  int32 live_type = 3;
+  int32 is_disabled = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message PageInfo {
+  int32 limit = 1;
+  int64 total = 2;
+}

@@ -1,0 +1,16 @@
+POST http://localhost:8085/activityadmin/v1/live/room/edit
+Content-Type: application/json
+TOKEN: e5f431e343aa1ae01d2c5e1e36889b4e
+
+{
+  "id": 26,
+  "name": "更新直播间",
+  "description": "这是一段随机字符串",
+  "icon": "https://example.com/icon.png",
+  "cover": "https://example.com/cover.png",
+  "sort": 41,
+  "is_disabled": 2,
+  "is_default": 2
+}
+
+###

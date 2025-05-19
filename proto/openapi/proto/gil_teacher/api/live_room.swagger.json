@@ -1,0 +1,459 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/gil_teacher/api/live_room.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "LiveRoom"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/live/room/create": {
+      "post": {
+        "summary": "Create a new live room",
+        "operationId": "LiveRoom_Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LiveRoom"
+        ]
+      }
+    },
+    "/v1/live/room/edit": {
+      "post": {
+        "summary": "Edit live room",
+        "operationId": "LiveRoom_Edit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomEditResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomEditRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LiveRoom"
+        ]
+      }
+    },
+    "/v1/live/room/info": {
+      "post": {
+        "summary": "Get live room info",
+        "operationId": "LiveRoom_Info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "LiveRoom"
+        ]
+      }
+    },
+    "/v1/live/room/list": {
+      "post": {
+        "summary": "Get live room list",
+        "operationId": "LiveRoom_List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "is_disabled",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "LiveRoom"
+        ]
+      }
+    },
+    "/v1/live/room/update": {
+      "post": {
+        "summary": "Update live room",
+        "operationId": "LiveRoom_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomUpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLiveRoomUpdateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LiveRoom"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "userLiveRoomCreateRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "live_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Request and Response messages"
+    },
+    "userLiveRoomCreateResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/userLiveRoomCreateResponseData"
+        }
+      }
+    },
+    "userLiveRoomCreateResponseData": {
+      "type": "object",
+      "properties": {
+        "last_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "userLiveRoomEditRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "is_disabled": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "userLiveRoomEditResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/userLiveRoomEditResponseData"
+        }
+      }
+    },
+    "userLiveRoomEditResponseData": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "userLiveRoomInfoResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/userLiveRoomInfoResponseData"
+        }
+      }
+    },
+    "userLiveRoomInfoResponseData": {
+      "type": "object",
+      "properties": {
+        "live_room": {
+          "$ref": "#/definitions/userLiveRoomVo"
+        }
+      }
+    },
+    "userLiveRoomListResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/userLiveRoomListResponseData"
+        }
+      }
+    },
+    "userLiveRoomListResponseData": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lists": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userLiveRoomVo"
+          }
+        },
+        "page_info": {
+          "$ref": "#/definitions/userPageInfo"
+        }
+      }
+    },
+    "userLiveRoomUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "is_disabled": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "userLiveRoomUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/userLiveRoomUpdateResponseData"
+        }
+      }
+    },
+    "userLiveRoomUpdateResponseData": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "userLiveRoomVo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "live_type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "is_disabled": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "title": "Common message types"
+    },
+    "userPageInfo": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

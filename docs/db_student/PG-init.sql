@@ -1,0 +1,51 @@
+-- -- 创建更新时间触发器函数
+-- CREATE OR REPLACE FUNCTION update_timestamp()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     NEW.update_time = EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::BIGINT;
+--     RETURN NEW;
+-- END;
+-- $$ language 'plpgsql';
+
+-- -- =============================================
+-- -- 学生管理模块
+-- -- =============================================
+
+-- -- --------------------------------
+-- -- 学生表
+-- -- --------------------------------
+-- BEGIN;
+-- CREATE TABLE tbl_student (
+--     id BIGSERIAL PRIMARY KEY,
+--     student_id BIGINT NOT NULL,
+--     school_id BIGINT NOT NULL,
+--     class_id BIGINT NOT NULL,
+--     student_name VARCHAR(20) NOT NULL,
+--     layer BIGINT,
+--     group_ids VARCHAR(200),
+--     create_time BIGINT DEFAULT EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::BIGINT,
+--     update_time BIGINT DEFAULT EXTRACT(EPOCH FROM CURRENT_TIMESTAMP)::BIGINT
+-- );
+-- -- 表注释：学生信息表，存储学生基本信息及群组关系
+-- COMMENT ON TABLE tbl_student IS '学生信息表，记录学生ID、所属学校、班级、姓名、层级、群组关系等信息';
+-- -- 字段注释
+-- COMMENT ON COLUMN tbl_student.id IS '自增主键ID';
+-- COMMENT ON COLUMN tbl_student.student_id IS '学生唯一标识ID';
+-- COMMENT ON COLUMN tbl_student.school_id IS '学生所属学校ID';
+-- COMMENT ON COLUMN tbl_student.class_id IS '学生所在班级ID';
+-- COMMENT ON COLUMN tbl_student.student_name IS '学生姓名';
+-- COMMENT ON COLUMN tbl_student.layer IS '学生层级（如分层教学中的层级）';
+-- COMMENT ON COLUMN tbl_student.group_ids IS '学生所属群组ID，多个ID用逗号分隔';
+-- COMMENT ON COLUMN tbl_student.create_time IS '记录创建时间';
+-- COMMENT ON COLUMN tbl_student.update_time IS '记录更新时间';
+
+-- -- 创建索引
+-- CREATE INDEX idx_tbl_student_school_id ON tbl_student(school_id);
+-- CREATE INDEX idx_tbl_student_class_id ON tbl_student(class_id);
+
+-- -- 创建更新时间触发器
+-- CREATE TRIGGER update_tbl_student_timestamp
+--     BEFORE UPDATE ON tbl_student
+--     FOR EACH ROW
+--     EXECUTE FUNCTION update_timestamp();
+-- COMMIT;
